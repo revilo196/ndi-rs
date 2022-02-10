@@ -472,7 +472,7 @@ impl VideoData {
     }
 
     /// creata VideoData from a raw memory buffer, with custom settings
-    pub fn from_buffer(width: i32, height: i32, fourcc: FourCCVideoType, framerate : i32, frame_format: FrameFormatType, timecode: i64, stride:i32, buffer: &mut [u8] ) -> Self {
+    pub fn from_buffer(width: i32, height: i32, fourcc: FourCCVideoType, framerate : i32, frame_format: FrameFormatType, timecode: i64, stride:i32, buffer: *mut u8 ) -> Self {
         Self {
             p_instance: NDIlib_video_frame_v2_t {
                 xres: width,
@@ -483,7 +483,7 @@ impl VideoData {
                 picture_aspect_ratio: width as f32 / height as f32,
                 frame_format_type: frame_format as _,
                 timecode: timecode,
-                p_data: buffer.as_mut_ptr(),
+                p_data: buffer,
                 __bindgen_anon_1: NDIlib_video_frame_v2_t__bindgen_ty_1 {
                     line_stride_in_bytes: stride,
                 },
